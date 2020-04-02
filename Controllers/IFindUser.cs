@@ -8,6 +8,6 @@ namespace UserPackage
 {
     interface IUserFinder
     {
-        User findUser(string email);
+        UserController findUser(string email);
     }
 }

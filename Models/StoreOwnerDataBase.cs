@@ -15,7 +15,7 @@ namespace UserPackage {
      /// </summary>
 public class StoreOwnerDataBase : IAddUserRepo, IUpdateUserRepo, IDeleteUserRepo, IListUserRepo, ISearchUserRepo
     {
-        List<StoreOwner> storeOwners = new List<StoreOwner>
+       static private List<StoreOwner> storeOwners = new List<StoreOwner>
         {
             new StoreOwner("morsi@gmail.com","morsi","789"),
         };
@@ -31,6 +31,7 @@ public class StoreOwnerDataBase : IAddUserRepo, IUpdateUserRepo, IDeleteUserRepo
                /// </returns>
      void addUser(User user)
     {
+            storeOwners.Add((StoreOwner)user);
             // section -87--2-87--42--4267bcd9:1710d3b46a2:-8000:000000000000098F begin
             // section -87--2-87--42--4267bcd9:1710d3b46a2:-8000:000000000000098F end
     }
@@ -44,14 +45,14 @@ public class StoreOwnerDataBase : IAddUserRepo, IUpdateUserRepo, IDeleteUserRepo
     /// </param>
     /// <returns>
     /// </returns>
-      User searchByEmail(string email)
+      UserController searchByEmail(string email)
     {
             // section -87--2-87--42--46e34135:1711ce644e4:-8000:0000000000000AF6 begin
             // section -87--2-87--42--46e34135:1711ce644e4:-8000:0000000000000AF6 end
             foreach (User user in storeOwners)
             {
                 if (user.getEmail().Equals(email))
-                    return user;
+                    return new StoreOwnerController((StoreOwner)user);
             }
             return null;
         }
@@ -89,7 +90,7 @@ public class StoreOwnerDataBase : IAddUserRepo, IUpdateUserRepo, IDeleteUserRepo
     }
         public List<User> listUsers()
         {
-            return null;
+            return new List<User>(storeOwners);
         }
 
     } /* end class StoreOwnerDataBase */

@@ -15,11 +15,11 @@ public class User
 {
     // Attributes
 
-    private string email;
+    public string email;
 
-    private string userName;
+    public string userName;
 
-    private string password;
+    public string password;
 
     private bool isLogged = false;
     

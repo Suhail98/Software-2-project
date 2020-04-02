@@ -28,21 +28,21 @@ public class RegisterController: ApiController, IRegister
         IAddStoreRepo onsiteStoreAdder = new OnSiteStoreDataBase();
 
         [HttpPost]
-        public NormalUser registerNormalUser(string email, string userName, string password, [FromBody]string value)
+        public UserController registerNormalUser(string email, string userName, string password, [FromBody]string value)
         {
-            User user = userFinder.findUser(email);
+            UserController user = userFinder.findUser(email);
             if (user != null)
                 return null;
 
-            NormalUser normalUser = new NormalUser(email, userName, password);
-            normalUserRepo.addUser(normalUser);
+            NormalUserController normalUser = new NormalUserController(email, userName, password);
+            normalUserRepo.addUser(normalUser.getNormalUser());
             return normalUser;
         }
 
         [HttpPost]
-        public StoreOwner registerStoreOwnerForOnlineStore(string email,string userName,string password, string storeName, string storeAddress, [FromBody]string value)
+        public UserController registerStoreOwnerForOnlineStore(string email,string userName,string password, string storeName, string storeURL, [FromBody]string value)
         {
-            User user = userFinder.findUser(email);
+            UserController user = userFinder.findUser(email);
             if (user != null)
                 return null;
 
@@ -50,16 +50,19 @@ public class RegisterController: ApiController, IRegister
             if (store != null)
                 return null;
 
-            onlineStoreAdder.addStore(new OnlineStore(storeName, storeAddress));
-            StoreOwner storeOwnerUser = new StoreOwner(email, userName, password);
-            storeOwnerRepo.addUser(storeOwnerUser);
+            
+            StoreOwnerController storeOwnerUser = new StoreOwnerController(email, userName, password);
+            OnlineStore onlineStore = new OnlineStore(storeName, storeURL,storeOwnerUser.getStoreOwner());
+            onlineStoreAdder.addStore(onlineStore);
+            storeOwnerUser.addStore(onlineStore);
+            storeOwnerRepo.addUser(storeOwnerUser.getStoreOwner());
             return storeOwnerUser;
         }
 
         [HttpPost]
-        public StoreOwner registerStoreOwnerForOnSiteStore(string email, string userName, string password, string storeName, string storeAddress, [FromBody]string value)
+        public UserController registerStoreOwnerForOnSiteStore(string email, string userName, string password, string storeName, string storeAddress, [FromBody]string value)
         {
-            User user = userFinder.findUser(email);
+            UserController user = userFinder.findUser(email);
             if (user != null)
                 return null;
 
@@ -67,9 +70,15 @@ public class RegisterController: ApiController, IRegister
             if (store != null)
                 return null;
 
-            onsiteStoreAdder.addStore(new OnSiteStore(storeName, storeAddress));
-            StoreOwner storeOwnerUser = new StoreOwner(email, userName, password);
-            storeOwnerRepo.addUser(storeOwnerUser);
+            StoreOwnerController storeOwnerUser = new StoreOwnerController(email, userName, password);
+            
+            OnSiteStore onSiteStore = new OnSiteStore(storeName, storeAddress, storeOwnerUser.getStoreOwner());
+            
+            onsiteStoreAdder.addStore(onSiteStore);
+            
+            storeOwnerUser.addStore(onSiteStore);
+            
+            storeOwnerRepo.addUser(storeOwnerUser.getStoreOwner());          
             return storeOwnerUser;
         }
 

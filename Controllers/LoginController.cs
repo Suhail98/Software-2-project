@@ -24,13 +24,16 @@ namespace WebApplication3.Controllers
         [HttpGet]
         public User login(string email, string password)
         {
-            User user = userFinder.findUser(email);
+            UserController user = userFinder.findUser(email);
             if (user == null || !user.getPassword().Equals(password))
                 return null;
-            //    Console.WriteLine(user.getEmail());
-            user.setString("123");
-            return user;
+
+            Global.setSession(user);
+
+            return user.getModel();
         }
+
+       
     } /* end class Login */
 
 }

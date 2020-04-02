@@ -11,7 +11,10 @@ namespace UserPackage {
     ///  @see OtherClasses
     ///  @author your_name_here
      /// </summary>
-public class UserController
-{} /* end class UserController */
+public abstract class UserController
+{
+        public abstract string getPassword();
+        public abstract User getModel();
+    } /* end class UserController */
 
 }

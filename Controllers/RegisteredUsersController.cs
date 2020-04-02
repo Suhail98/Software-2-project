@@ -12,27 +12,22 @@ namespace UserPackage
         private ISearchUserRepo[] searchUserRepos = new ISearchUserRepo[]{ new AdminstratorDataBase(), new NormalUserDataBase(), new StoreOwnerDataBase() };
         private IListUserRepo[] listUserRepos = new IListUserRepo[] {new NormalUserDataBase(), new StoreOwnerDataBase() };
 
-        public User findUser(string email)
+        public UserController findUser(string email)
         {
-            User user = null;
+            UserController userController = null;
             for (int i = 0; i < searchUserRepos.Length; i++)
             {
-                user = searchUserRepos[i].searchByEmail(email);
-                if (user != null) break;
+                userController = searchUserRepos[i].searchByEmail(email);
+                if (userController != null) break;
             }
-            user.setString(email);
-            return user;
+            return userController;
         }
+        [HttpGet]
         public List<User> listAllUsers()
         {
             List<User> clientUsers = new List<User>();
             for (int i = 0; i < listUserRepos.Length; i++)
                 clientUsers.AddRange(listUserRepos[i].listUsers());
-            foreach(User user in clientUsers)
-            {
-                Console.WriteLine("name : " + user.getUserName() + " " + "email : " + user.getEmail()
-                     + " " + "password : " + user.getPassword());
-            }
             return clientUsers;
         }
     }

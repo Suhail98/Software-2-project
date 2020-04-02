@@ -17,16 +17,16 @@ public class Store
 {
     // Attributes
 
-    public string name;
 
-    public StoreOwner owner;
+    private StoreOwner storeOwner;
         private string storeName;
         private string storeAddress;
 
-        public Store(string storeName, string storeAddress)
+        public Store(string storeName, string storeAddress, StoreOwner storeOwner)
         {
             this.storeName = storeName;
             this.storeAddress = storeAddress;
+           this.storeOwner = storeOwner;
         }
     } /* end class Store */
 

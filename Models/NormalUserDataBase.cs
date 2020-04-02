@@ -5,6 +5,7 @@
 // section -87--2-87--42--4267bcd9:1710d3b46a2:-8000:0000000000000975 end
 using System;
 using System.Collections.Generic;
+using System.Web.Http;
 
 namespace UserPackage {
 
@@ -14,9 +15,9 @@ namespace UserPackage {
     ///  @see OtherClasses
     ///  @author your_name_here
      /// </summary>
-public class NormalUserDataBase : IAddUserRepo, IUpdateUserRepo, IDeleteUserRepo, IListUserRepo, ISearchUserRepo
+public class NormalUserDataBase : ApiController,IAddUserRepo, IUpdateUserRepo, IDeleteUserRepo, IListUserRepo, ISearchUserRepo
     {
-        List<NormalUser> normalUsers = new List<NormalUser>
+       static private List<NormalUser> normalUsers = new List<NormalUser>
         {
             new NormalUser("abdo@gmail.com","abdo","123"),
         };
@@ -32,10 +33,8 @@ public class NormalUserDataBase : IAddUserRepo, IUpdateUserRepo, IDeleteUserRepo
     /// </returns>
      void addUser(User user)
         {
-        
-    // section -87--2-87--42--4267bcd9:1710d3b46a2:-8000:000000000000098B begin
-    // section -87--2-87--42--4267bcd9:1710d3b46a2:-8000:000000000000098B end
 
+            normalUsers.Add((NormalUser)user);
     }
 
     public /// <summary>
@@ -47,12 +46,13 @@ public class NormalUserDataBase : IAddUserRepo, IUpdateUserRepo, IDeleteUserRepo
     /// </param>
     /// <returns>
     /// </returns>
-      User searchByEmail( string email)
+      UserController searchByEmail( string email)
     {
            foreach(User user in normalUsers)
             {
+                
                 if (user.getEmail().Equals(email))
-                    return user;
+                    return new NormalUserController((NormalUser)user);
             }
             return null;
     // section -87--2-87--42--46e34135:1711ce644e4:-8000:0000000000000AED begin
@@ -60,7 +60,7 @@ public class NormalUserDataBase : IAddUserRepo, IUpdateUserRepo, IDeleteUserRepo
 
     }
 
-        
+      
 
         public /// <summary>
     ///  An operation that does...
@@ -96,7 +96,7 @@ public class NormalUserDataBase : IAddUserRepo, IUpdateUserRepo, IDeleteUserRepo
     }
         public List<User> listUsers()
         {
-            return null;
+            return new List<User>(normalUsers);
         }
 
     } /* end class NormalUserDataBase */

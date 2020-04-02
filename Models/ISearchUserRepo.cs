@@ -8,6 +8,6 @@ namespace UserPackage
 {
     interface ISearchUserRepo
     {
-        User searchByEmail(string email);
+        UserController searchByEmail(string email);
     }
 }

@@ -18,12 +18,16 @@ public class StoreOwner : User
 {
     // Attributes
 
-    public List<Store> stores;
+    public List<Store> stores = new List<Store>();
         
        
         public StoreOwner(string email, string userName, string password) : base(email,userName,password)
         {
-            
+          //  stores = new List<Store>();
+        }
+        public void addStore(Store store)
+        {
+            stores.Add(store);
         }
     } /* end class StoreOwner */
 

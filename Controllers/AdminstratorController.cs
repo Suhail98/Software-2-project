@@ -15,7 +15,21 @@ public class AdminstratorController : UserController
 {
     // Attributes
 
-    public Adminstrator admin;
-} /* end class AdminstratorController */
+    private Adminstrator admin;
+
+        public AdminstratorController(Adminstrator admin)
+        {
+            this.admin = admin;
+        }
+           
+        public override string getPassword()
+        {
+            return admin.getPassword();
+        }
+        public override User getModel()
+        {
+            return admin;
+        }
+    } /* end class AdminstratorController */
 
 }

@@ -48,12 +48,12 @@ namespace UserPackage {
         /// </param>
         /// <returns>
         /// </returns>
-        public  User searchByEmail( string email)
+        public  UserController searchByEmail( string email)
     {
             foreach (User user in AdminUser)
             {
                 if (user.getEmail().Equals(email))
-                    return user;
+                    return new AdminstratorController((Adminstrator)user);
             }
             return null;
 
@@ -94,7 +94,7 @@ namespace UserPackage {
 
         public List<User> listUsers()
         {
-            return null;
+            return new List<User>(AdminUser);
         }
 
         

@@ -35,9 +35,9 @@ public interface IRegister
     /// </param>
     /// <returns>
     /// </returns>
-     NormalUser registerNormalUser( string a,  string b,  string c , [FromBody]string value);
-         StoreOwner registerStoreOwnerForOnlineStore(string email, string userName, string password, string storeName, string storeAddress, [FromBody]string value);
-         StoreOwner registerStoreOwnerForOnSiteStore(string email, string userName, string password, string storeName, string storeAddress, [FromBody]string value);
+         NormalUserController registerNormalUser( string a,  string b,  string c , [FromBody]string value);
+         StoreOwnerController registerStoreOwnerForOnlineStore(string email, string userName, string password, string storeName, string storeAddress, [FromBody]string value);
+         StoreOwnerController registerStoreOwnerForOnSiteStore(string email, string userName, string password, string storeName, string storeAddress, [FromBody]string value);
 
 
 } /* end interface IRegister */
